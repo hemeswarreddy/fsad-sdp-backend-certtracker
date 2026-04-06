@@ -28,20 +28,24 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String updateuserProfile(User user) {
-		 Optional<User> optional = userRepository.findById(user.getId());
-		 if (optional.isPresent()) {
-       User u = optional.get();
+		Optional<User> optional = userRepository.findById(user.getId());
 
-           u.setContact(user.getContact());
-       
-           u.setName(user.getName());
-        
-   userRepository.save(u);
-          return "User Profile Updated Successfully";
-      } 
-       else 
-       {
-           return "Customer ID Not Found to Update";       }
+	    if (optional.isPresent()) {
+	        User u = optional.get();
+
+	        if(user.getName() != null)
+	            u.setName(user.getName());
+
+	        if(user.getContact() != null)
+	            u.setContact(user.getContact());
+
+	        userRepository.save(u);
+
+	        return "User Profile Updated Successfully";
+	    } 
+	    else {
+	        return "User Id not found to update";
+	    }
 	}
 
 
