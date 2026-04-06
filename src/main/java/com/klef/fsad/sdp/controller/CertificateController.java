@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,4 +60,18 @@ public class CertificateController {
 	    }
 	}
 
+	
+	@PutMapping("/updatebyname")
+	public ResponseEntity<String> updateCertificateByName(@RequestBody CertificateDetails cert)
+	{
+	    try
+	    {
+	        String output = certificateservice.updateCertificateByName(cert);
+	        return ResponseEntity.ok(output);
+	    }
+	    catch(Exception e)
+	    {
+	        return ResponseEntity.status(500).body("Error Updating Certificate");
+	    }
+	}
 }

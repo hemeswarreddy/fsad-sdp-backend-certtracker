@@ -12,5 +12,7 @@ import com.klef.fsad.sdp.entity.User;
 public interface CertificateRepository extends JpaRepository<CertificateDetails, Integer>{
 
 	List<CertificateDetails> findByUser(User user);
+	
+	public CertificateDetails findByCertName(String certName);
 
 }

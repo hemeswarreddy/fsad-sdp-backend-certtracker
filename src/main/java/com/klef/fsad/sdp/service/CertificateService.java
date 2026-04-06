@@ -11,5 +11,6 @@ public interface CertificateService {
 	String addCertificate(CertificateDetails cert);
 
 	List<CertificateDetails> viewCertificatesByUser(int userid);
-
-}
+	
+	public String updateCertificateByName(CertificateDetails cert);
+	}

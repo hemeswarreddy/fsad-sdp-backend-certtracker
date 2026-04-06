@@ -36,5 +36,24 @@ public class CertificateServiceImpl implements CertificateService{
 
 	    return null;
 	}
+	@Override
+	public String updateCertificateByName(CertificateDetails cert) {
+		 CertificateDetails c = certificateRepository.findByCertName(cert.getCertName());
+
+		    if(c != null)
+		    {
+		        c.setIssueDate(cert.getIssueDate());
+		        c.setExpiryDate(cert.getExpiryDate());
+		        c.setCertificateUrl(cert.getCertificateUrl());
+
+		        certificateRepository.save(c);
+		        return "Certificate Updated Successfully";
+		    }
+
+		    return "Certificate Not Found";
+	}
+	
+	
+	
 
 }
