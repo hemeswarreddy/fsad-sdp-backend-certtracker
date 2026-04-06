@@ -1,9 +1,12 @@
 package com.klef.fsad.sdp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.klef.fsad.sdp.entity.Admin;
+import com.klef.fsad.sdp.entity.User;
 import com.klef.fsad.sdp.repository.AdminRepository;
 import com.klef.fsad.sdp.repository.UserRepository;
 
@@ -19,6 +22,14 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Admin verifyAdminLogin(String username, String password) {
 		return adminRepository.findByUsernameAndPassword(username, password);
+	}
+
+	@Override
+	public List<User> ViewallUsers() 
+	{
+		return userRepository.findAll();
+		
+		
 	}
 
 }
