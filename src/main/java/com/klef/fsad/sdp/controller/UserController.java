@@ -20,14 +20,14 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/")
+	@GetMapping("/")//home page
 	public String Userslash()
 	{
-		return "User Controller test";
+		return "User Controller Test";
 	}
 	
 	//user registration
-	@PostMapping("/signup")
+	@PostMapping("/signup")//user self-signup 
 	public ResponseEntity<?> userregistration(@RequestBody User u)
 	{
 		try
@@ -37,7 +37,7 @@ public class UserController {
 		}
 		catch(Exception e)
 		{
-			return ResponseEntity.status(500).body("Internal Server Error");
+			return ResponseEntity.status(500).body("Internal server error");
 		}
 	}
 	

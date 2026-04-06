@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String userRegistration(User user) {
-		userRepository.save(user);
-		return "User Registered Successfully";
+		userRepository.save(user);//add user
+		return "User registered successfully ";
 	}
 
 	@Override
