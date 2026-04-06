@@ -6,5 +6,5 @@ public interface UserService {
 	public String userRegistration(User user);//for user-self-registration
 	public User verifyUserLogin(String email, String pwd);
 	
-
+	 public String updateuserProfile(User user);
 }

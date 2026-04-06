@@ -62,5 +62,18 @@ public class UserController {
 			return ResponseEntity.status(500).body("Internal Server Error");
 		}
 	}
+	 @PostMapping("/updateuserprofile")
+	   public ResponseEntity<String> userupdateprofile(@RequestBody User u)
+	   {
+		   try
+		   {
+			   String output = userService.updateuserProfile(u);
+			   return ResponseEntity.status(201).body(output);
+		   }
+		   catch(Exception e)
+		   {
+			   return ResponseEntity.status(500).body("Internal Server Error");
+		   }
+	   }
 
 }
