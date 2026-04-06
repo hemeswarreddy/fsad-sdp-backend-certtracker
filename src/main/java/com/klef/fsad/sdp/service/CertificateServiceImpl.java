@@ -52,8 +52,19 @@ public class CertificateServiceImpl implements CertificateService{
 
 		    return "Certificate Not Found";
 	}
-	
-	
+	@Override
+	public String deleteByCertNameAndUserId(String certName, int userid) 
+	{
+	    CertificateDetails cert = certificateRepository.findByCertNameAndUser_Id(certName, userid);
+
+	    if(cert != null)
+	    {
+	        certificateRepository.delete(cert);
+	        return "Certificate Deleted Successfully";
+	    }
+
+	    return "Certificate Not Found";
+	}
 	
 
 }

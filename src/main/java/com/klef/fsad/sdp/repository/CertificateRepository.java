@@ -14,5 +14,6 @@ public interface CertificateRepository extends JpaRepository<CertificateDetails,
 	List<CertificateDetails> findByUser(User user);
 	
 	public CertificateDetails findByCertName(String certName);
+	public CertificateDetails findByCertNameAndUser_Id(String certName, int userid);
 
 }

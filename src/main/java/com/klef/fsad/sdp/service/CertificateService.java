@@ -13,4 +13,5 @@ public interface CertificateService {
 	List<CertificateDetails> viewCertificatesByUser(int userid);
 	
 	public String updateCertificateByName(CertificateDetails cert);
+	public String deleteByCertNameAndUserId(String certName, int userid);
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,6 +73,22 @@ public class CertificateController {
 	    catch(Exception e)
 	    {
 	        return ResponseEntity.status(500).body("Error Updating Certificate");
+	    }
+	}
+	
+	@DeleteMapping("/delete/{certName}/{userid}")
+	public ResponseEntity<String> deleteCertificate(
+	        @PathVariable String certName,
+	        @PathVariable int userid)
+	{
+	    try
+	    {
+	        String output = certificateservice.deleteByCertNameAndUserId(certName, userid);
+	        return ResponseEntity.ok(output);
+	    }
+	    catch(Exception e)
+	    {
+	        return ResponseEntity.status(500).body("Error Deleting Certificate");
 	    }
 	}
 }
