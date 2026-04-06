@@ -9,5 +9,7 @@ public interface AdminService {
 	  public Admin verifyAdminLogin(String username,String password);
 	  
 	  public List<User> ViewallUsers();
+	  
+	  public boolean deleteUser(int id);
 
 }
