@@ -65,6 +65,10 @@ public class CertificateServiceImpl implements CertificateService{
 
 	    return "Certificate Not Found";
 	}
+	@Override
+	public List<CertificateDetails> viewAllCertificates() {
+		return certificateRepository.findAll();
+	}
 	
 
 }

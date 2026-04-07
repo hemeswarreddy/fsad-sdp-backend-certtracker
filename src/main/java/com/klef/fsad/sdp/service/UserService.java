@@ -7,4 +7,6 @@ public interface UserService {
 	public User verifyUserLogin(String email, String pwd);
 	
 	 public String updateuserProfile(User user);
+	 
+	 public User getUserByUsername(String username);
 }

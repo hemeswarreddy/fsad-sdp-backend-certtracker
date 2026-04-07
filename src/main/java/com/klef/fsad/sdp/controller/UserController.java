@@ -48,26 +48,26 @@ public class UserController {
 	}
 	
 	//user login
-	@PostMapping("login")
-	public ResponseEntity<?> verifyuserlogin(@RequestBody User user)
-	{
-		try
-		{
-			User u= userService.verifyUserLogin(user.getEmail(), user.getPassword());
-			if(u!=null)
-		    {
-		    	return ResponseEntity.status(200).body(u);
-		    }
-		    else
-		    {
-		    	return ResponseEntity.status(401).body("Login Invalid");
-		    }
-		}
-		catch(Exception e)
-		{
-			return ResponseEntity.status(500).body("Internal Server Error");
-		}
-	}
+//	@PostMapping("login")
+//	public ResponseEntity<?> verifyuserlogin(@RequestBody User user)
+//	{
+//		try
+//		{
+//			User u= userService.verifyUserLogin(user.getEmail(), user.getPassword());
+//			if(u!=null)
+//		    {
+//		    	return ResponseEntity.status(200).body(u);
+//		    }
+//		    else
+//		    {
+//		    	return ResponseEntity.status(401).body("Login Invalid");
+//		    }
+//		}
+//		catch(Exception e)
+//		{
+//			return ResponseEntity.status(500).body("Internal Server Error");
+//		}
+//	}
 	 @PutMapping("/updateuserprofile")
 	   public ResponseEntity<?> userupdateprofile(@RequestBody User u)
 	   {
@@ -82,5 +82,27 @@ public class UserController {
 		   }
 	   }
 	
+	 
+	 @GetMapping("/getbyusername/{username}")
+	 public ResponseEntity<?> getUserByUsername(@PathVariable String username) 
+	 {
+	     try 
+	     {
+	         User user = userService.getUserByUsername(username);
+
+	         if (user != null) 
+	         {
+	             return ResponseEntity.ok(user);
+	         } 
+	         else 
+	         {
+	             return ResponseEntity.status(404).body("User not found");
+	         }
+	     } 
+	     catch (Exception e) 
+	     {
+	         return ResponseEntity.status(500).body("Internal Server Error");
+	     }
+	 }
 
 }

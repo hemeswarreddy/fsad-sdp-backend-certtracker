@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.klef.fsad.sdp.entity.Admin;
+import com.klef.fsad.sdp.entity.CertificateDetails;
 import com.klef.fsad.sdp.entity.User;
 import com.klef.fsad.sdp.repository.AdminRepository;
+import com.klef.fsad.sdp.repository.CertificateRepository;
 import com.klef.fsad.sdp.repository.UserRepository;
 
 @Service
@@ -18,6 +20,10 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	private CertificateRepository certificateRepository;
+	
+
 
 	@Override
 	public Admin verifyAdminLogin(String username, String password) {
@@ -44,5 +50,7 @@ public class AdminServiceImpl implements AdminService {
 			return false;
 		}
 	}
+
+	
 
 }

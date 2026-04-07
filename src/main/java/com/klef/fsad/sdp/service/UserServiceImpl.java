@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User verifyUserLogin(String email, String pwd) {
-		return userRepository.findByEmailAndPassword(email, pwd);
+		return userRepository.findByUsernameAndPassword(email, pwd);
 	}
 
 	@Override
@@ -46,6 +46,12 @@ public class UserServiceImpl implements UserService {
 	    else {
 	        return "User Id not found to update";
 	    }
+	}
+	
+	@Override
+	public User getUserByUsername(String username) 
+	{
+	    return userRepository.findByUsername(username);
 	}
 
 

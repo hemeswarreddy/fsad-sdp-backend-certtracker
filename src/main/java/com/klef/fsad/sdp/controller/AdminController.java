@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.klef.fsad.sdp.SpringBootSdpBackendProjectApplication;
 import com.klef.fsad.sdp.entity.Admin;
+import com.klef.fsad.sdp.entity.CertificateDetails;
 import com.klef.fsad.sdp.entity.User;
 import com.klef.fsad.sdp.service.AdminService;
+import com.klef.fsad.sdp.service.CertificateService;
 import com.klef.fsad.sdp.service.UserService;
 
 @RestController
@@ -27,6 +29,10 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	
+	@Autowired
+	private CertificateService certificateservice;
 
     AdminController(SpringBootSdpBackendProjectApplication springBootSdpBackendProjectApplication) {
         this.springBootSdpBackendProjectApplication = springBootSdpBackendProjectApplication;
@@ -38,29 +44,29 @@ public class AdminController {
 		return "Online Certificate Tracker";
 	}
 	
-	@PostMapping("/login")
-	public ResponseEntity<?> checkadminlogin(@RequestBody Admin admin)
-	{
-		try
-		{
-			Admin a = adminService.verifyAdminLogin(admin.getUsername(), admin.getPassword());
-		
-		    if(a!=null)
-		    {
-		    	return ResponseEntity.status(200).body(admin);
-		    	
-		    }
-		    else
-		    {
-		    	return ResponseEntity.status(401).body("Login Invalid");
-		    }
-		}
-		catch (Exception e) 
-		{
-			System.out.println(e.getMessage());
-			return ResponseEntity.status(500).body("Internal Server Error");
-		}
-	}
+//	@PostMapping("/login")
+//	public ResponseEntity<?> checkadminlogin(@RequestBody Admin admin)
+//	{
+//		try
+//		{
+//			Admin a = adminService.verifyAdminLogin(admin.getUsername(), admin.getPassword());
+//		
+//		    if(a!=null)
+//		    {
+//		    	return ResponseEntity.status(200).body(admin);
+//		    	
+//		    }
+//		    else
+//		    {
+//		    	return ResponseEntity.status(401).body("Login Invalid");
+//		    }
+//		}
+//		catch (Exception e) 
+//		{
+//			System.out.println(e.getMessage());
+//			return ResponseEntity.status(500).body("Internal Server Error");
+//		}
+//	}
 	@GetMapping("/viewallusers")
 	public ResponseEntity<?> viewallusers() {
 		try {
@@ -104,4 +110,12 @@ public class AdminController {
 		}
 	}
 
+	@GetMapping("/viewallcertificates")
+	public ResponseEntity<?> viewAllCertificates()
+	{
+	   
+	        List<CertificateDetails> list = certificateservice.viewAllCertificates();
+	        return ResponseEntity.ok().body(list);
+
+	}
 }
