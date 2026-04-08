@@ -25,7 +25,6 @@ import com.klef.fsad.sdp.service.UserService;
 @CrossOrigin("*")
 public class AdminController {
 
-    private final SpringBootSdpBackendProjectApplication springBootSdpBackendProjectApplication;
 	
 	@Autowired
 	private AdminService adminService;
@@ -34,9 +33,7 @@ public class AdminController {
 	@Autowired
 	private CertificateService certificateservice;
 
-    AdminController(SpringBootSdpBackendProjectApplication springBootSdpBackendProjectApplication) {
-        this.springBootSdpBackendProjectApplication = springBootSdpBackendProjectApplication;
-    }
+    
 	
 	@GetMapping("/")
 	public String slash()
