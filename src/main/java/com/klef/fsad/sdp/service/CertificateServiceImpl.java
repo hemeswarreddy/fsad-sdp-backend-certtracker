@@ -69,6 +69,11 @@ public class CertificateServiceImpl implements CertificateService{
 	public List<CertificateDetails> viewAllCertificates() {
 		return certificateRepository.findAll();
 	}
+	@Override
+	public List<CertificateDetails> viewExpiringCertificates(String date) 
+	{
+	    return certificateRepository.findExpiringCertificates(date);
+	}
 	
 
 }

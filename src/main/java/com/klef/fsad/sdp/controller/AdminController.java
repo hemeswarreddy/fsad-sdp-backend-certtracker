@@ -1,5 +1,9 @@
 package com.klef.fsad.sdp.controller;
 
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.klef.fsad.sdp.SpringBootSdpBackendProjectApplication;
+import com.klef.fsad.sdp.dto.EmailDTO;
 import com.klef.fsad.sdp.entity.Admin;
 import com.klef.fsad.sdp.entity.CertificateDetails;
 import com.klef.fsad.sdp.entity.User;
@@ -115,4 +120,47 @@ public class AdminController {
 	        return ResponseEntity.ok().body(list);
 
 	}
+	
+	
+	
+	@GetMapping("/expiringcertificates/{date}")
+	public ResponseEntity<?> viewExpiringCertificates(@PathVariable String date)
+	{
+	    try
+	    {
+	        List<CertificateDetails> list = certificateservice.viewExpiringCertificates(date);
+
+	        if(list != null && list.size() > 0)
+	        {
+	            return ResponseEntity.ok(list);
+	        }
+	        else
+	        {
+	            return ResponseEntity.noContent().build();
+	        }
+	    }
+	    catch(Exception e)
+	    {
+	        return ResponseEntity.status(500).body("Error Fetching Data");
+	    }
+	}
+	
+	
+	@Autowired
+	private JavaMailSender mailSender;
+
+	@PostMapping("/sendemail")
+	public ResponseEntity<String> sendEmail(@RequestBody EmailDTO emaildto) {
+	    try {
+	        SimpleMailMessage mail = new SimpleMailMessage();
+	        mail.setTo(emaildto.getReceiveremail());
+	        mail.setSubject(emaildto.getSubject());
+	        mail.setText(emaildto.getMessage());
+	        mailSender.send(mail);
+	        return ResponseEntity.ok("Email Sent Successfully");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(500).body("Email Sending Failed");
+	    }
+	}
+
 }

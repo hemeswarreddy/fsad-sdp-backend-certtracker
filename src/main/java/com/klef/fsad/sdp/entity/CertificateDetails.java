@@ -1,5 +1,7 @@
 package com.klef.fsad.sdp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -35,6 +37,7 @@ public class CertificateDetails
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"password"}) 
     private User user;
 
     public int getId() {
