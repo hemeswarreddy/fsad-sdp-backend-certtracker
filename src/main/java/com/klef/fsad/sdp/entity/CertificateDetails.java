@@ -1,5 +1,5 @@
 package com.klef.fsad.sdp.entity;
-
+import java.sql.Blob;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDateTime;
@@ -99,11 +99,31 @@ public class CertificateDetails
     public void setUser(User user) {
         this.user = user;
     }
+    @Lob
+    private Blob fileData;
+
+    private String fileName;
 
     @Override
-    public String toString() {
-        return "CertificateDetails [id=" + id + ", certName=" + certName + ", orgName=" + orgName
-                + ", issueDate=" + issueDate + ", expiryDate=" + expiryDate
-                + ", certificateUrl=" + certificateUrl + ", addedAt=" + addedAt + "]";
-    }
+	public String toString() {
+		return "CertificateDetails [id=" + id + ", certName=" + certName + ", orgName=" + orgName + ", issueDate="
+				+ issueDate + ", expiryDate=" + expiryDate + ", certificateUrl=" + certificateUrl + ", addedAt="
+				+ addedAt + ", user=" + user + ", fileData=" + fileData + ", fileName=" + fileName + "]";
+	}
+
+	public Blob getFileData() {
+		return fileData;
+	}
+
+	public void setFileData(Blob fileData) {
+		this.fileData = fileData;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 }

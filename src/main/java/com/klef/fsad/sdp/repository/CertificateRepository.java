@@ -20,4 +20,6 @@ public interface CertificateRepository extends JpaRepository<CertificateDetails,
 	@Query("select c from CertificateDetails c join fetch c.user where c.expiryDate < ?1")
 	List<CertificateDetails> findExpiringCertificates(String date);
 
+	List<CertificateDetails> findByExpiryDate(String date);
+
 }

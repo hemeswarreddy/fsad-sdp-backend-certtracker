@@ -11,69 +11,76 @@ import com.klef.fsad.sdp.repository.CertificateRepository;
 import com.klef.fsad.sdp.repository.UserRepository;
 
 @Service
-public class CertificateServiceImpl implements CertificateService{
+public class CertificateServiceImpl implements CertificateService
+{
+    @Autowired
+    private CertificateRepository certificateRepository;
 
-	@Autowired
-	private CertificateRepository certificateRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private UserRepository userRepository;
-	@Override
-	public String addCertificate(CertificateDetails cert) 
-	{
-	    certificateRepository.save(cert);
-	    return "Certificate Added Successfully";
-	}
-	@Override
-	public List<CertificateDetails> viewCertificatesByUser(int userid) 
-	{
-	    User user = userRepository.findById(userid).orElse(null);
+    @Override
+    public String addCertificate(CertificateDetails cert) 
+    {
+        certificateRepository.save(cert);
+        return "Certificate Added Successfully";
+    }
 
-	    if(user != null)
-	    {
-	        return certificateRepository.findByUser(user);
-	    }
+    @Override
+    public List<CertificateDetails> viewCertificatesByUser(int userid) 
+    {
+        User user = userRepository.findById(userid).orElse(null);
 
-	    return null;
-	}
-	@Override
-	public String updateCertificateByName(CertificateDetails cert) {
-		 CertificateDetails c = certificateRepository.findByCertName(cert.getCertName());
+        if(user != null)
+        {
+            return certificateRepository.findByUser(user);
+        }
+        return null;
+    }
 
-		    if(c != null)
-		    {
-		        c.setIssueDate(cert.getIssueDate());
-		        c.setExpiryDate(cert.getExpiryDate());
-		        c.setCertificateUrl(cert.getCertificateUrl());
+    @Override
+    public String updateCertificateByName(CertificateDetails cert) 
+    {
+        certificateRepository.save(cert);
+        return "Certificate Updated Successfully";
+    }
 
-		        certificateRepository.save(c);
-		        return "Certificate Updated Successfully";
-		    }
+    @Override
+    public String deleteByCertNameAndUserId(String certName, int userid) 
+    {
+        User user = userRepository.findById(userid).orElse(null);
 
-		    return "Certificate Not Found";
-	}
-	@Override
-	public String deleteByCertNameAndUserId(String certName, int userid) 
-	{
-	    CertificateDetails cert = certificateRepository.findByCertNameAndUser_Id(certName, userid);
+        if(user != null)
+        {
+            List<CertificateDetails> list = certificateRepository.findByUser(user);
 
-	    if(cert != null)
-	    {
-	        certificateRepository.delete(cert);
-	        return "Certificate Deleted Successfully";
-	    }
+            for(CertificateDetails c : list)
+            {
+                if(c.getCertName().equals(certName))
+                {
+                    certificateRepository.delete(c);
+                    return "Certificate Deleted Successfully";
+                }
+            }
+        }
+        return "Certificate Not Found";
+    }
 
-	    return "Certificate Not Found";
-	}
-	@Override
-	public List<CertificateDetails> viewAllCertificates() {
-		return certificateRepository.findAll();
-	}
-	@Override
-	public List<CertificateDetails> viewExpiringCertificates(String date) 
-	{
-	    return certificateRepository.findExpiringCertificates(date);
-	}
-	
+    @Override
+    public List<CertificateDetails> viewAllCertificates() 
+    {
+        return certificateRepository.findAll();
+    }
 
+    @Override
+    public List<CertificateDetails> viewExpiringCertificates(String date) 
+    {
+        return certificateRepository.findByExpiryDate(date);
+    }
+
+    @Override
+    public CertificateDetails getCertificateById(int id) 
+    {
+        return certificateRepository.findById(id).orElse(null);
+    }
 }
